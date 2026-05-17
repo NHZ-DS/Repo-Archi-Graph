@@ -4,41 +4,72 @@
       "id": "README.md",
       "label": "README.md",
       "group": "documentation",
-      "summary": "Project documentation file providing overview and usage instructions for the Repo-Archi-Graph visualization tool."
+      "summary": "Project documentation serving as the primary entry point for understanding system architecture and usage patterns.",
+      "metrics": {
+        "blast_radius_score": 2,
+        "lines_of_code": 0,
+        "architectural_debt": "CRITICAL: File is completely empty. Missing essential documentation including project overview, installation instructions, architecture diagrams, API documentation, contribution guidelines, and hackathon value proposition. This creates severe onboarding friction and undermines project credibility."
+      }
     },
     {
       "id": "core/scanner.py",
       "label": "scanner.py",
       "group": "python",
-      "summary": "Core Python module responsible for scanning workspace files, analyzing code structure, and generating architectural metadata for visualization."
+      "summary": "Core analytical engine responsible for workspace traversal, file discovery, and preparing repository context for architectural analysis.",
+      "metrics": {
+        "blast_radius_score": 9,
+        "lines_of_code": 34,
+        "architectural_debt": "SEVERE: Primitive file enumeration without actual analysis capabilities. Missing: AST parsing for dependency extraction, import graph construction, cyclomatic complexity calculation, coupling metrics, dead code detection, and security vulnerability scanning. No error handling for file access failures. Hardcoded extension whitelist prevents extensibility. No logging framework. The scan_repository function merely lists files without extracting architectural relationships or code metrics. Requires complete refactoring with proper abstraction layers: FileDiscovery, ASTAnalyzer, MetricsCalculator, DependencyGraphBuilder, and JSONSerializer components."
+      }
     },
     {
       "id": "template/index.html",
       "label": "index.html",
       "group": "frontend",
-      "summary": "Interactive web interface that renders the architecture graph using Vis.js library. Displays nodes, edges, and file metadata with IBM Bob AI branding."
+      "summary": "Interactive visualization layer consuming architectural JSON and rendering force-directed graph with real-time node inspection capabilities.",
+      "metrics": {
+        "blast_radius_score": 5,
+        "lines_of_code": 164,
+        "architectural_debt": "MODERATE: Monolithic single-file architecture violates separation of concerns. CSS embedded inline (should be external stylesheet), JavaScript logic tightly coupled to DOM (should use MVC/MVVM pattern or React/Vue). Hardcoded relative path '../output/architecture.json' creates deployment fragility. Missing: error boundary UI, loading states, responsive design for mobile, accessibility (ARIA labels), search/filter functionality, export capabilities (PNG/SVG), metrics visualization panels, and zoom controls. No build pipeline, minification, or tree-shaking. Vis.js CDN dependency creates external failure point without fallback or SRI integrity checks. No TypeScript for type safety."
+      }
+    },
+    {
+      "id": "output/architecture.json",
+      "label": "architecture.json",
+      "group": "data",
+      "summary": "Serialized architectural metadata serving as the contract between backend analysis engine and frontend visualization layer.",
+      "metrics": {
+        "blast_radius_score": 8,
+        "lines_of_code": 75,
+        "architectural_debt": "HIGH: Current schema is self-referential and contains meta-analysis rather than actual repository data. Schema lacks critical enterprise metrics including cyclomatic_complexity, test_coverage, security_vulnerabilities, maintainability_index, and technical_debt_ratio. Missing validation schema (JSON Schema/OpenAPI), versioning metadata, timestamp, git commit hash, and analysis configuration. No support for hierarchical module grouping, package boundaries, or cross-cutting concerns. Edge labels lack semantic richness (should include dependency types: runtime, compile-time, test, optional). Requires schema evolution with backward compatibility strategy and migration path."
+      }
     }
   ],
   "edges": [
     {
       "from": "core/scanner.py",
       "to": "output/architecture.json",
-      "label": "generates"
+      "label": "serializes architectural intelligence into"
     },
     {
       "from": "output/architecture.json",
       "to": "template/index.html",
-      "label": "feeds_data_to"
+      "label": "injects structured metadata consumed by"
     },
     {
       "from": "README.md",
       "to": "core/scanner.py",
-      "label": "documents"
+      "label": "provides conceptual documentation for"
     },
     {
       "from": "README.md",
       "to": "template/index.html",
-      "label": "documents"
+      "label": "describes user interaction patterns within"
+    },
+    {
+      "from": "template/index.html",
+      "to": "output/architecture.json",
+      "label": "establishes runtime dependency on"
     }
   ]
 }
