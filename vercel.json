@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "core/scanner.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "template/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "core/scanner.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "template/$1"
+    }
+  ],
+  "env": {
+    "PYTHON_VERSION": "3.11"
+  }
+}
