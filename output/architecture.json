@@ -1,0 +1,44 @@
+{
+  "nodes": [
+    {
+      "id": "README.md",
+      "label": "README.md",
+      "group": "documentation",
+      "summary": "Project documentation file providing overview and usage instructions for the Repo-Archi-Graph visualization tool."
+    },
+    {
+      "id": "core/scanner.py",
+      "label": "scanner.py",
+      "group": "python",
+      "summary": "Core Python module responsible for scanning workspace files, analyzing code structure, and generating architectural metadata for visualization."
+    },
+    {
+      "id": "template/index.html",
+      "label": "index.html",
+      "group": "frontend",
+      "summary": "Interactive web interface that renders the architecture graph using Vis.js library. Displays nodes, edges, and file metadata with IBM Bob AI branding."
+    }
+  ],
+  "edges": [
+    {
+      "from": "core/scanner.py",
+      "to": "output/architecture.json",
+      "label": "generates"
+    },
+    {
+      "from": "output/architecture.json",
+      "to": "template/index.html",
+      "label": "feeds_data_to"
+    },
+    {
+      "from": "README.md",
+      "to": "core/scanner.py",
+      "label": "documents"
+    },
+    {
+      "from": "README.md",
+      "to": "template/index.html",
+      "label": "documents"
+    }
+  ]
+}
